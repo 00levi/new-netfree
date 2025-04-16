@@ -1,7 +1,35 @@
+# Node modules
 node_modules/
+
+# Compilados de SCSS
+src/css/
+*.css
+*.css.map
+
+# Archivos de build
 dist/
-*.log
+out/
+
+# Archivos temporales del sistema
 .DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Electron
 *.exe
-*.zip
-*.tar.gz
+*.app
+*.asar
+*.dmg
+
+# VSCode settings (si querés)
+.vscode/
+
+# Git
+.git/
+
+# Otros archivos temporales
+*.log
