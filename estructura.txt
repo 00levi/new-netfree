@@ -1,0 +1,63 @@
+.vscode
+dist
+node_modules
+src
+|
+├─ css
+|   ├─ style.css
+|   └─ style.css.map
+├─ electron
+|   ├─ adblocker.js
+|   ├─ cleaner.js
+|   ├─ movieController.js
+|   ├─ power.js
+|   └─ windows.js
+├─ html
+|   └─ index.html
+├─ js
+|   ├─ components
+|   |    ├─ carousel.js
+|   |    ├─ control.js
+|   |    └─ modal.js
+|   ├─ core
+|   |    ├─ initMovies.js
+|   |    ├─ initSeries.js
+|   |    ├─ loadMovies.js
+|   |    ├─ loadSeries.js
+|   |    ├─ renderEpisodes.js
+|   |    ├─ renderMovies.js
+|   |    └─ renderseries.js
+|   └─ app.js
+├─ scss
+|   ├─ base
+|   |   ├─ _index.scss
+|   |   ├─ _globales.scss
+|   |   └─ _variables.scss
+|   ├─ ui
+|   |   ├─ carruseles
+|   |   |   ├─ _carruseles.scss
+|   |   |   └─ _index.scss
+|   |   ├─ footer
+|   |   |   └─ _index.scss
+|   |   ├─ header
+|   |   |   ├─ _buscador.scss
+|   |   |   ├─ _index.scss
+|   |   |   └─ _modal.scss
+|   |   └─ _index.scss
+|   └─ app.scss
+└─ server
+    ├─ router
+    |   ├─ controlRoute.js
+    |   ├─ moviesRoute.js
+    |   └─ seriesRoute.js
+    ├─ corsOptions.js
+    └─ loadOrigins.js
+main.js
+package-lock.json
+package.json
+preload.js
+server.js
+simulate_click.ahk
+
+
+

@@ -1,0 +1,199 @@
+@use '../../base/variables' as v;
+
+
+/* Contenedor de cada carrusel y su grid */
+.carousel-wrapper {
+    display: flex;
+    position: relative;
+    width: 100%; /* Ocupa todo el ancho del contenedor principal */
+    margin-bottom: 20px;
+    overflow: hidden; /* Evita el scroll en el contenedor */
+}
+
+/* Carruseles */
+.carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%; /* Ocupa todo el ancho del contenedor del carrusel */
+    overflow: hidden; /* Oculta el contenido que se desborda */
+    transition: height 0.3s ease; /* Transición suave para el cambio de altura */
+}
+
+/* Botones de carrusel */
+.carousel-left, .carousel-right {
+    width: 50px; /* Botones rectangulares */
+    height: 100%;
+
+    color: white;
+    font-size: 55px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: background 0.3s ease;
+    position: absolute;
+    top: 50%; /* Alinea verticalmente al centro */
+    transform: translateY(-50%); /* Ajusta la posición para centrar verticalmente */
+    padding: 0px;
+    z-index: 10;
+}
+
+.carousel-left {
+    left: 0px; /* Posición de botón izquierdo */
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.0), // completamente transparente
+        v.$fondo-semitransparente // color con opacidad desde variables
+    );
+
+}
+
+.carousel-right {
+    right: 0px; /* Posición de botón derecho */
+    
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.0), // completamente transparente
+        v.$fondo-semitransparente // color con opacidad desde variables
+    );
+}
+
+.carousel-left:hover, .carousel-right:hover {
+    
+    color: black;
+}
+.carousel-left:hover{
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.0), // completamente transparente
+        rgba(255, 255, 255, 0.5) // color con opacidad desde variables
+    );
+}
+.carousel-right:hover{
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.0), // completamente transparente
+        rgba(255, 255, 255, 0.5) // color con opacidad desde variables
+    );
+}
+
+
+/* Contenido del carrusel */
+.carousel-content {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    scroll-behavior: smooth;
+    white-space: nowrap; /* Alinea en línea */
+    padding: 0; /* Sin espacio interno para evitar scroll */
+    margin: 0; /* Sin margen para evitar scroll */
+    width: 150%; /* Aumenta el ancho del contenido del carrusel */
+}
+
+/* Tarjetas de video */
+.video-card, .series-card, .episode-card {
+    display: inline-block;
+    width: 300px; /* Ancho aumentado para el diseño */
+    height: 180px; /* Altura aumentada para el diseño */
+    margin: 5px 15px; /* Espacio entre tarjetas aumentado */
+    cursor: pointer;
+    vertical-align: top;
+    transition: transform 0.3s ease-in-out, height 0.3s ease; /* Transición controlada */
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: v.$card-bg; /* Fondo oscuro para tarjetas */
+    position: relative; /* Necesario para el z-index de los títulos */
+    box-sizing: border-box; /* Asegura que el padding y el border no aumenten el tamaño de la tarjeta */
+}
+
+/* Tarjeta expandida */
+.video-card.expanded, .series-card.expanded, .episode-card.expanded {
+    height: 160px; /* Altura máxima cuando se expande */
+}
+
+/* Imágenes de tarjetas */
+.video-card img, .series-card img, .episode-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Las imágenes se ajustan sin deformarse */
+    display: block; /* Asegura que las imágenes no causen scroll */
+}
+
+/* Contenedores de links para videos y episodios */
+.video-card .links-container, .episode-card .episode-container {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    background: v.$fondo-semitransparente; /* Fondo semitransparente */
+    color: white;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 2; /* Asegura que el contenedor esté sobre las tarjetas */
+    display: flex; /* Alinea el contenido verticalmente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    height: 100%; /* Ocupa toda la altura de la tarjeta */
+}
+
+.video-card.expanded .links-container, .episode-card.expanded .episode-container {
+    display: flex; /* Asegura que el contenido interno sea visible */
+    overflow: hidden; /* Asegura que el contenido interno no cause scroll */
+}
+
+/* Animación al pasar el cursor */
+.video-card:hover, .series-card:hover, .episode-card:hover {
+    transform: scale(1.05); /* Escala suave al pasar el cursor */
+}
+
+/* Títulos de series y episodios en la parte baja */
+.series-card .series-title, .episode-card .episode-title {
+    position: absolute;
+    bottom: 0; /* Título en la parte baja */
+    left: 0;
+    width: 100%;
+    background-color: v.$fondo-semitransparente; /* Fondo semitransparente */
+    color: white;
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 14px; /* Tamaño aumentado para el título */
+    z-index: 2; /* Asegura que el título esté sobre otros elementos */
+}
+
+/* Títulos de series */
+.series-card .series-title {
+    font-size: 16px; /* Tamaño mayor para el título de la serie */
+    font-weight: bold;
+}
+
+/* Títulos de episodios */
+.episode-card .episode-title {
+    font-size: 14px; /* Tamaño aumentado para los episodios */
+}
+
+/* Botón para ver episodio */
+.episode-card .view-episode {
+    position: absolute;
+    top: 50%; /* Posiciona en el centro verticalmente */
+    left: 50%; /* Posiciona en el centro horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición para centrar */
+    background: rgba(0, 0, 0, 0.8); /* Fondo semitransparente */
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px; /* Tamaño aumentado del texto */
+    text-align: center;
+    cursor: pointer;
+    z-index: 3; /* Asegura que el texto esté sobre la imagen */
+}
+
+/* Botón de ver episodio dentro del contenedor */
+.episode-card .episode-container .view-episode {
+    z-index: 4; /* Asegura que el botón esté sobre el texto del episodio */
+}

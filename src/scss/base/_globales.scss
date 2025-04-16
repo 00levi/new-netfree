@@ -1,0 +1,19 @@
+@use '../base/variables' as v;
+
+
+/* Estilos generales */
+body {
+    font-family: v.$font-main;
+    margin: 0;
+    padding: 0;
+    background-color: v.$background-color; /* Fondo oscuro */
+    overflow-x: hidden; /* Elimina el scroll horizontal en todo el body */
+}
+
+/* Contenedor principal */
+.container {
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    margin: 0 auto;
+    padding: 0px;
+    box-sizing: border-box; /* Asegura que el padding y border no aumenten el tamaño total */
+}
