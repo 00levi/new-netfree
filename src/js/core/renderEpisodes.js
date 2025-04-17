@@ -6,6 +6,7 @@ export function renderEpisodes(episodesGrid, currentEpisodes, episodeIndex, ITEM
     episodeSlice.forEach(episode => {
         const episodeCard = document.createElement('div');
         episodeCard.classList.add('episode-card');
+        episodeCard.setAttribute('tabindex', '0');
 
         const link = document.createElement('a');
         link.href = '#';

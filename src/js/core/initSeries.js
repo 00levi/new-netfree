@@ -26,11 +26,17 @@ function setSeriesIndex(index) {
     seriesIndex = index;
 }
 
+function normalizeText(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
 // Función para cargar las series filtradas y mostrarlas
 function renderFilteredSeries() {
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = normalizeText(searchInput.value);
+    const filteredSeries = series.filter(serie => normalizeText(serie.title).includes(searchTerm));
+
     renderSeries(
-        series,
+        filteredSeries,
         seriesIndex,
         searchTerm,
         ITEMS_PER_PAGE,
@@ -38,13 +44,20 @@ function renderFilteredSeries() {
         (serie) => {
             currentSeries = serie;
             currentEpisodes = serie.episodes || [];
-            episodeIndex = 0; // Resetear el índice de episodios al seleccionar una nueva serie
-            renderEpisodes(episodesGrid, currentEpisodes, episodeIndex, ITEMS_PER_PAGE);  // Mostrar los episodios de la serie seleccionada
-            updateCarouselButtons('episodes', [], [], currentEpisodes, 0, 0, episodeIndex, ITEMS_PER_PAGE); // Actualizar los botones de la navegación de episodios
+            episodeIndex = 0;
+            renderEpisodes(episodesGrid, currentEpisodes, episodeIndex, ITEMS_PER_PAGE);
+            updateCarouselButtons('episodes', [], [], currentEpisodes, 0, 0, episodeIndex, ITEMS_PER_PAGE);
+            episodesGrid.closest('.carousel-wrapper').style.display = currentEpisodes.length ? 'block' : 'none';
         }
     );
-    updateCarouselButtons('series', [], series, [], 0, seriesIndex, 0, ITEMS_PER_PAGE); // Actualizar los botones de la navegación de series
+
+    if (!filteredSeries.length) {
+        episodesGrid.closest('.carousel-wrapper').style.display = 'none';
+    }
+
+    updateCarouselButtons('series', [], filteredSeries, [], 0, seriesIndex, 0, ITEMS_PER_PAGE);
 }
+
 
 // Manejar el cambio de páginas de series
 document.querySelector('.carousel-left[data-target="seriesCarousel"]').addEventListener('click', () => {
@@ -73,3 +86,5 @@ searchInput.addEventListener('input', renderFilteredSeries);
 
 // Carga inicial de las series
 loadSeries(jsonSeriesUrl, setSeries, setSeriesIndex, renderFilteredSeries);
+
+

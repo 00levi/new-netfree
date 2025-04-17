@@ -5,7 +5,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #1a1a1a; /* Fondo oscuro */
-  overflow-x: hidden; /* Elimina el scroll horizontal en todo el body */
+  overflow-x: hidden;
 }
 
 /* Contenedor principal */
@@ -14,6 +14,16 @@ body {
   margin: 0 auto;
   padding: 0px;
   box-sizing: border-box; /* Asegura que el padding y border no aumenten el tamaño total */
+}
+
+#scroll-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+}
+
+#scroll-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 /* Contenedor de cada carrusel y su grid */
@@ -90,7 +100,7 @@ body {
 }
 
 /* Tarjetas de video */
-.video-card, .series-card, .episode-card {
+.channel-card, .video-card, .series-card, .episode-card {
   display: inline-block;
   width: 300px; /* Ancho aumentado para el diseño */
   height: 180px; /* Altura aumentada para el diseño */
@@ -193,6 +203,20 @@ body {
   z-index: 4; /* Asegura que el botón esté sobre el texto del episodio */
 }
 
+.channel-card:focus,
+.video-card:focus,
+.series-card:focus,
+.episode-card:focus {
+  display: block;
+  transition: transform 0.3s ease-in-out, height 0.3s ease;
+  outline: 2px solid #fff;
+  transform: scale(1.05);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  height: 160px;
+}
+
 /* Buscador */
 .search-container {
   margin-bottom: 20px; /* Espacio entre el buscador y el carrusel */
@@ -212,6 +236,16 @@ body {
   color: white;
   box-sizing: border-box; /* Asegura que el padding no aumente el tamaño del campo */
   margin: 20px auto; /* Centra el campo horizontalmente */
+}
+
+#searchInput:focus {
+  display: block;
+  transition: transform 0.3s ease-in-out, height 0.3s ease;
+  outline: 2px solid #fff;
+  transform: scale(1.05);
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Modal */

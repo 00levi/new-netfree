@@ -5,52 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Aplicación de Videos</title>
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 <body>
-    <div class="container">
-        <h1>Películas y Series</h1>
+    <div id="scroll-container">
+        <div class="container">
+            <h1>Netfree</h1>
 
-        <div id="searchContainer">
-            <input type="text" id="searchInput" placeholder="Buscar...">
-        </div>
+            <div id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Buscar...">
+            </div>
 
-        <!-- Carrusel de Películas -->
-        <div class="carousel-wrapper" id="moviesWrapper">
-            <div class="carousel" id="moviesCarousel">
-                <div class="carousel-left" data-target="moviesCarousel">&lt;</div>
-                <div class="carousel-right" data-target="moviesCarousel">&gt;</div>
-                <div id="moviesGrid" class="carousel-content"></div>
+            <!-- Carrusel de Canales -->
+            <div class="carousel-wrapper" id="channelsWrapper">
+                <div class="carousel" id="channelsCarousel">
+                    <div class="carousel-left" data-target="channelsCarousel">&lt;</div>
+                    <div class="carousel-right" data-target="channelsCarousel">&gt;</div>
+                    <div id="channelsGrid" class="carousel-content" data-target="channelsCarousel"></div>
+                </div>
+            </div>
+
+            <!-- Carrusel de Películas -->
+            <div class="carousel-wrapper" id="moviesWrapper">
+                <div class="carousel" id="moviesCarousel">
+                    <div class="carousel-left" data-target="moviesCarousel">&lt;</div>
+                    <div class="carousel-right" data-target="moviesCarousel">&gt;</div>
+                    <div id="moviesGrid" class="carousel-content" data-target="moviesCarousel"></div>
+                </div>
+            </div>
+
+            <!-- Carrusel de Series -->
+            <div class="carousel-wrapper" id="seriesWrapper">
+                <div class="carousel" id="seriesCarousel">
+                    <div class="carousel-left" data-target="seriesCarousel">&lt;</div>
+                    <div class="carousel-right" data-target="seriesCarousel">&gt;</div>
+                    <div id="seriesGrid" class="carousel-content" data-target="seriesCarousel"></div>
+                </div>
+            </div>
+
+            <!-- Carrusel de Episodios -->
+            <div class="carousel-wrapper" id="episodesWrapper">
+                <div class="carousel" id="episodesCarousel">
+                    <div class="carousel-left" data-target="episodesCarousel">&lt;</div>
+                    <div class="carousel-right" data-target="episodesCarousel">&gt;</div>
+                    <div id="episodesGrid" class="carousel-content" data-target="episodesCarousel"></div>
+                </div>
             </div>
         </div>
 
-        <!-- Carrusel de Series -->
-        <div class="carousel-wrapper" id="seriesWrapper">
-            <div class="carousel" id="seriesCarousel">
-                <div class="carousel-left" data-target="seriesCarousel">&lt;</div>
-                <div class="carousel-right" data-target="seriesCarousel">&gt;</div>
-                <div id="seriesGrid" class="carousel-content"></div>
+        <!-- Modal -->
+        <div class="modal" id="videoModal">
+            <div class="modal-content">
+                <iframe id="videoIframe" width="100%" height="100%" scrolling="no" frameborder="0" allowfullscreen allow="encrypted-media; autoplay"></iframe>
+                <span class="close" id="closeModal">&times;</span>
             </div>
         </div>
 
-        <!-- Carrusel de Episodios -->
-        <div class="carousel-wrapper" id="episodesWrapper">
-            <div class="carousel" id="episodesCarousel">
-                <div class="carousel-left" data-target="episodesCarousel">&lt;</div>
-                <div class="carousel-right" data-target="episodesCarousel">&gt;</div>
-                <div id="episodesGrid" class="carousel-content"></div>
-            </div>
-        </div>
+        <!-- Enlazar el script JavaScript -->
+        <script type="module" src="../js/app.js"></script>
     </div>
-
-    <!-- Modal -->
-    <div class="modal" id="videoModal">
-        <div class="modal-content">
-            <iframe id="videoIframe" width="100%" height="100%"  scrolling="no" frameborder="0" allowfullscreen="true" frameborder="0" allow="encrypted-media; autoplay"></iframe>
-            <span class="close" id="closeModal">&times;</span>
-        </div>
-    </div>
-
-    <!-- Enlazar el script JavaScript -->
-    <script type="module" src="../js/app.js"></script>
+</body>
 </html>

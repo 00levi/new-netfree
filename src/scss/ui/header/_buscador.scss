@@ -18,3 +18,12 @@
     box-sizing: border-box; /* Asegura que el padding no aumente el tamaño del campo */
     margin: 20px auto; /* Centra el campo horizontalmente */
 }
+#searchInput:focus{
+    display: block;
+    transition: transform 0.3s ease-in-out, height 0.3s ease;
+    outline: 2px solid #fff; // O el color que quieras
+    transform: scale(1.05); // Un poco más grande para que se note
+    z-index: 10; // Asegura que se muestre sobre otras cards
+    justify-content: center;
+    align-items: center;
+}

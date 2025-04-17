@@ -24,10 +24,16 @@ function setMovieIndex(index) {
     movieIndex = index;
 }
 
+function normalizeText(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+}
+
 function renderFilteredMovies() {
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = normalizeText(searchInput.value);
+    const filteredMovies = movies.filter(movie => normalizeText(movie.title).includes(searchTerm));
+
     renderMovies(
-        movies,
+        filteredMovies,
         movieIndex,
         searchTerm,
         ITEMS_PER_PAGE,
@@ -38,10 +44,17 @@ function renderFilteredMovies() {
             episodeIndex = 0;
             renderEpisodes(currentMovie, currentEpisodes, episodeIndex, ITEMS_PER_PAGE, episodesGrid);
             updateCarouselButtons('episodes', [], [], currentEpisodes, 0, 0, episodeIndex, ITEMS_PER_PAGE);
+            episodesGrid.closest('.carousel-wrapper').style.display = currentEpisodes.length ? 'block' : 'none';
         }
     );
-    updateCarouselButtons('movies', movies, [], [], movieIndex, 0, 0, ITEMS_PER_PAGE);
+
+    if (!filteredMovies.length) {
+        episodesGrid.closest('.carousel-wrapper').style.display = 'none';
+    }
+
+    updateCarouselButtons('movies', filteredMovies, [], [], movieIndex, 0, 0, ITEMS_PER_PAGE);
 }
+
 
 searchInput.addEventListener('input', renderFilteredMovies);
 

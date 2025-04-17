@@ -95,7 +95,7 @@
 }
 
 /* Tarjetas de video */
-.video-card, .series-card, .episode-card {
+.channel-card, .video-card, .series-card, .episode-card {
     display: inline-block;
     width: 300px; /* Ancho aumentado para el diseño */
     height: 180px; /* Altura aumentada para el diseño */
@@ -196,4 +196,18 @@
 /* Botón de ver episodio dentro del contenedor */
 .episode-card .episode-container .view-episode {
     z-index: 4; /* Asegura que el botón esté sobre el texto del episodio */
+}
+
+.channel-card:focus,
+.video-card:focus,
+.series-card:focus,
+.episode-card:focus {
+    display: block;
+    transition: transform 0.3s ease-in-out, height 0.3s ease;
+    outline: 2px solid #fff; // O el color que quieras
+    transform: scale(1.05); // Un poco más grande para que se note
+    z-index: 10; // Asegura que se muestre sobre otras cards
+    justify-content: center;
+    align-items: center;
+    height: 160px;
 }

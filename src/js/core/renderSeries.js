@@ -10,6 +10,7 @@ export function renderSeries(series, seriesIndex, searchTerm, ITEMS_PER_PAGE, se
     seriesSlice.forEach(serie => {
         const seriesCard = document.createElement('div');
         seriesCard.classList.add('series-card');
+        seriesCard.setAttribute('tabindex', '0');
 
         const link = document.createElement('a');
         link.href = '#';
