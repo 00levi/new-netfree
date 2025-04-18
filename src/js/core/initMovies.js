@@ -53,7 +53,24 @@ function renderFilteredMovies() {
     }
 
     updateCarouselButtons('movies', filteredMovies, [], [], movieIndex, 0, 0, ITEMS_PER_PAGE);
+
+    // Activar navegación por teclado
+    const carruseles = document.querySelectorAll('.carousel');
+    carruseles.forEach(c => c.classList.remove('active'));
+
+    const moviesCarrusel = document.getElementById('moviesGrid')?.closest('.carousel');
+    if (moviesCarrusel) {
+        moviesCarrusel.classList.add('active');
+        const firstCard = moviesCarrusel.querySelector('.card');
+        if (firstCard) {
+            document.querySelectorAll('.card.selected').forEach(card => card.classList.remove('selected'));
+            firstCard.classList.add('selected');
+            
+        }
+    }
+
 }
+
 
 
 searchInput.addEventListener('input', renderFilteredMovies);

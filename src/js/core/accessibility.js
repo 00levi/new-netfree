@@ -3,16 +3,26 @@ let carruselIndex = 0;
 let cardIndex = 0;
 let enBuscador = false;
 
-// Función para verificar si hay un carrusel de episodios activo y visible
-function hayCarruselDeEpisodios() {
-    const carruselEpisodios = document.querySelector('#episodios');
-    if (!carruselEpisodios) return false;
-    const cards = carruselEpisodios.querySelectorAll('.episode-card');
-    return cards.length > 0 && getComputedStyle(carruselEpisodios).display !== 'none';
+// Devuelve todos los carruseles visibles con al menos una card
+function obtenerCarruselesVisibles() {
+    const carruselesDOM = Array.from(document.querySelectorAll('.carousel-content, #episodios'));
+    return carruselesDOM.filter(carrusel => {
+        const isVisible = getComputedStyle(carrusel).display !== 'none';
+        const tieneCards = carrusel.querySelectorAll('.video-card, .series-card, .channel-card, .episode-card').length > 0;
+        return isVisible && tieneCards;
+    });
+}
+
+function actualizarCarruseles() {
+    carruseles = obtenerCarruselesVisibles();
+    if (carruselIndex >= carruseles.length) {
+        carruselIndex = 0;
+    }
 }
 
 function actualizarFoco() {
-    // Limpiar el foco previo
+    actualizarCarruseles();
+
     document.querySelectorAll('.card-selected').forEach(card => {
         card.classList.remove('card-selected');
         card.setAttribute('tabindex', '-1');
@@ -28,12 +38,7 @@ function actualizarFoco() {
     if (!carrusel) return;
 
     const cards = carrusel.querySelectorAll('.video-card, .series-card, .channel-card, .episode-card');
-    if (cards.length === 0) return;
-
-    // Asegurar que el índice esté dentro del rango válido
-    if (cardIndex >= cards.length) {
-        cardIndex = cards.length - 1;
-    }
+    if (cardIndex >= cards.length) cardIndex = cards.length - 1;
 
     const card = cards[cardIndex];
     if (!card) return;
@@ -61,7 +66,10 @@ function activarCard() {
 }
 
 function handleKeydown(e) {
+    actualizarCarruseles();
+
     const carrusel = carruseles[carruselIndex];
+
     const cards = carrusel ? carrusel.querySelectorAll('.video-card, .series-card, .channel-card, .episode-card') : [];
 
     switch (e.key) {
@@ -69,67 +77,60 @@ function handleKeydown(e) {
             e.preventDefault();
             if (cardIndex < cards.length - 1) {
                 cardIndex++;
-            } else {
+            } else if (carrusel) {
                 const target = carrusel.dataset.target || carrusel.id;
                 const btnNext = document.querySelector(`.carousel-right[data-target="${target}"]`);
-                if (btnNext) btnNext.click();
-                cardIndex = cards.length - 1; // Asegura que no se pase
+                if (btnNext) {
+                    if (cards.length > 4) {
+                        btnNext.click();
+                        cardIndex = cards.length - 1;
+                    }
+                }
             }
             break;
-
+        
         case 'ArrowLeft':
             e.preventDefault();
             if (cardIndex > 0) {
                 cardIndex--;
-            } else {
+            } else if (carrusel) {
                 const target = carrusel.dataset.target || carrusel.id;
                 const btnPrev = document.querySelector(`.carousel-left[data-target="${target}"]`);
-                if (btnPrev) btnPrev.click();
-                cardIndex = 0; // No ir más allá
+                if (btnPrev && cards.length > 1) {
+                    btnPrev.click();
+                    cardIndex = 0;
+                }
             }
             break;
+        
 
         case 'ArrowDown':
             e.preventDefault();
-
             if (enBuscador) {
                 enBuscador = false;
                 carruselIndex = 0;
                 cardIndex = 0;
-                break;
-            }
-
-            if (carruselIndex >= carruseles.length - 1) {
-                if (hayCarruselDeEpisodios()) {
-                    carruselIndex++;
-                    cardIndex = 0;
-                } else {
-                    carruselIndex = 0;
-                    cardIndex = 0;
-                }
             } else {
-                carruselIndex++;
+                carruselIndex = (carruselIndex + 1) % carruseles.length;
                 cardIndex = 0;
             }
             break;
 
         case 'ArrowUp':
             e.preventDefault();
-
             if (carruselIndex === 0) {
                 enBuscador = true;
                 carruselIndex = -1;
-                break;
+            } else {
+                carruselIndex--;
+                cardIndex = 0;
             }
-
-            carruselIndex--;
-            cardIndex = 0;
             break;
 
         case 'Enter':
             e.preventDefault();
             activarCard();
-            return;
+            break;
 
         case 'Escape':
             e.preventDefault();
@@ -147,15 +148,10 @@ function handleKeydown(e) {
     actualizarFoco();
 }
 
-// Cargar carruseles + listeners
 window.addEventListener('DOMContentLoaded', () => {
-    const baseCarruseles = Array.from(document.querySelectorAll('.carousel-content'));
-    const carruselEpisodios = document.querySelector('#episodios');
-
-    carruseles = [...baseCarruseles];
-    if (carruselEpisodios) carruseles.push(carruselEpisodios);
-
+    actualizarCarruseles();
     actualizarFoco();
+
     document.addEventListener('keydown', handleKeydown);
 
     document.addEventListener('click', (e) => {

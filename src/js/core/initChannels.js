@@ -34,6 +34,22 @@ function renderFilteredChannels() {
         ITEMS_PER_PAGE,
         channelsGrid
     );
+
+    // Activar navegación por teclado
+    const carruseles = document.querySelectorAll('.carousel');
+    carruseles.forEach(c => c.classList.remove('active'));
+
+    const channelsCarrusel = document.getElementById('channelsGrid')?.closest('.carousel');
+    if (channelsCarrusel) {
+        channelsCarrusel.classList.add('active');
+        const firstCard = channelsCarrusel.querySelector('.card');
+        if (firstCard) {
+            document.querySelectorAll('.card.selected').forEach(card => card.classList.remove('selected'));
+            firstCard.classList.add('selected');
+        }
+    }
+
+    
 }
 
 

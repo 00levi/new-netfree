@@ -15,7 +15,14 @@ export function renderMovies(movies, movieIndex, searchTerm, ITEMS_PER_PAGE, mov
         link.classList.add('video-link');
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            openModal(movie.iframe);
+            const index = movieSlice.indexOf(movie);
+            if (movie.video) {
+                openModal({ type: 'video', src: movie.video, list: movieSlice, currentIndex: index });
+            } else if (movie.iframe) {
+                openModal({ type: 'iframe', src: movie.iframe });
+            } else {
+                console.warn('Película sin fuente:', movie);
+            }
         });
 
         const img = document.createElement('img');

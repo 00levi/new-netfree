@@ -1,4 +1,3 @@
-// src/js/core/renderChannels.js
 import { openModal } from '../components/modal.js';
 import { updateCarouselButtons } from '../components/carousel.js';
 
@@ -12,13 +11,19 @@ export function renderChannels(channels, channelIndex, searchTerm, ITEMS_PER_PAG
         videoCard.classList.add('video-card');
         videoCard.setAttribute('tabindex', '0');
 
-        
         const link = document.createElement('a');
         link.href = '#';
         link.classList.add('video-link');
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            openModal(channel.iframe);
+
+            if (channel.video) {
+                openModal({ type: 'video', src: channel.video }); // Si tiene video
+            } else if (channel.iframe) {
+                openModal({ type: 'iframe', src: channel.iframe }); // Si tiene iframe
+            } else {
+                console.warn('Canal sin fuente:', channel); // Si no tiene ninguna fuente
+            }
         });
 
         const img = document.createElement('img');

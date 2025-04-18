@@ -1,3 +1,4 @@
+@use '../../base/variables' as v;
 /* Modal */
 .modal {
     position: fixed;
@@ -31,6 +32,13 @@
     display: block;
     overflow: hidden;
 }
+.modal video {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    overflow: hidden;
+}
 
 
 /* Botón de Cierre */
@@ -48,3 +56,18 @@
 .hide {
     display: none;
 }
+
+.skip-intro-button {
+    z-index: 9999;
+    position: absolute;
+    bottom: 80px;  // Cambiado de top a bottom
+    right: 20px;
+    padding: 15px 55px;
+    background-color: v.$fondo-semitransparente;
+    color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
